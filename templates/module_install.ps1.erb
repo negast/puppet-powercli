@@ -1,11 +1,12 @@
 
 try {
-    Install-Module -Name VMware.PowerCLI -Force -AllowClobber -Repository PSGallery -AcceptLicense -ErrorAction Stop
+    Install-Module -Name VMware.PowerCLI -Force -AllowClobber -Repository PSGallery -ErrorAction Stop
     Write-Host "Module installed successfully."
 } catch {
     $errorMessage = $_.Exception.Message
     Write-Host "Error occurred: $errorMessage"
     $errorMessage | Out-File -FilePath "C:\OUTPUT.TXT" -Append
+    exit 1
 }
 
 
