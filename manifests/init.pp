@@ -43,10 +43,17 @@ class powercli (
     installation_policy => 'trusted',
   }
 
-  package { 'VMware.PowerCLI':
-    ensure   => latest,
-    provider => 'windowspowershell',
-    source   => 'PSGallery',
+  # package { 'VMware.PowerCLI':
+  #   ensure   => latest,
+  #   provider => 'windowspowershell',
+  #   source   => 'PSGallery',
+  # }
+
+  exec { 'install vmware powercli':
+    command  => 'Install-Module VMware.PowerCLI -Scope AllUsers -Force -AllowClobber -Repository PSGallery -AcceptLicense',
+    unless   => ' Get-InstalledModule -name VMware.PowerCLI',
+    timeout  => 500000,
+    provider => powershell,
   }
 
   if $config != undef {
