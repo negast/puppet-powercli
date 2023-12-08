@@ -51,7 +51,7 @@ class powercli (
 
   exec { 'install vmware powercli':
     command  => template('powercli/module_install.ps1.erb'),
-    onlyif   => template('powercli/test_module_install.ps1.erb'),
+    onlyif   => 'if (Get-InstalledModule -name VMware.PowerCLI) { exit 1 }',
     timeout  => 500000,
     provider => 'powershell',
   }
