@@ -1,0 +1,8 @@
+if (Get-Module -ListAvailable -Name SomeModule) {
+    Write-Host "Module exists so return 1 to not install"
+    { exit 1 }
+} 
+else {
+    Write-Host "Module does not exist exit 0 to install"
+    { exit 0 }
+}

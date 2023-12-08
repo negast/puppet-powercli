@@ -50,10 +50,10 @@ class powercli (
   # }
 
   exec { 'install vmware powercli':
-    command  => 'Install-Module VMware.PowerCLI -Scope AllUsers -Force -AllowClobber -Repository PSGallery -AcceptLicense',
-    unless   => ' Get-InstalledModule -name VMware.PowerCLI',
+    command  => template('powercli/module_install.ps1.erb'),
+    onlyif   => template('powercli/test_module_install.ps1.erb'),
     timeout  => 500000,
-    provider => powershell,
+    provider => 'powershell',
   }
 
   if $config != undef {
